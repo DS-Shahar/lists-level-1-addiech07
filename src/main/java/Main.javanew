@@ -1,0 +1,97 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+
+public class ListsLevel1 {
+
+    public static boolean everythingInList(List<Integer> L1, Set<Integer> L2Set, int index) {
+                if (index == L1.size()) {
+            return true;
+        }
+
+                if (!L2Set.contains(L1.get(index))) {
+            return false;
+        }
+
+                return everythingInList(L1, L2Set, index + 1);
+    }
+
+        public static List<Integer> newList(int[] arr) {
+        List<Integer> list = new ArrayList<>();
+        for (int value : arr) {
+            list.add(value);
+        }
+        return list;
+    }
+
+       public static void printList(List<Integer> list, int i) {
+        if (list.size() > i) {
+            System.out.println(list.get(i));
+            printList(list, i + 1);
+        }
+    }
+
+     
+    public static List<Integer> positiveNumList() {
+        List<Integer> list = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter positive numbers (end with -1):");
+        while (true) {
+            int num = scanner.nextInt();
+            if (num == -1) {
+                break;
+            }
+            list.add(num);
+        }
+        return list;
+    }
+
+   
+    public static void evenNum(List<Integer> list) {
+        for (int value : list) {
+            if (value % 2 == 0) {
+                System.out.println(value);
+            }
+        }
+    }
+
+  
+    public static List<Integer> removeFirstNum(List<Integer> list, int num) {
+        List<Integer> newList = new ArrayList<>(list);
+        newList.remove(Integer.valueOf(num));
+        return newList;
+    }
+
+    
+    public static List<Integer> remove(List<Integer> list, int i) {
+        if (i < 0 || i >= list.size()) {
+            throw new IndexOutOfBoundsException("Invalid index");
+        }
+        List<Integer> newList = new ArrayList<>(list);
+        newList.remove(i);
+        return newList;
+    }
+
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3};
+        List<Integer> list = newList(array);
+        System.out.println("Original list:");
+        printList(list, 0);
+
+        List<Integer> userList = positiveNumList();
+        System.out.println("User's list:");
+        printList(userList, 0);
+
+      
+        Set<Integer> L2Set = new HashSet<>(userList);
+
+  
+        boolean result = everythingInList(list, L2Set, 0);
+        System.out.println( result);
+        evenNum(userList);
+        List<Integer> modifiedList = removeFirstNum(list, 3);
+        printList(modifiedList, 0);
+    }
+}
