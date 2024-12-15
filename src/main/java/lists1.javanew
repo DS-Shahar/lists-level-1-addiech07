@@ -1,0 +1,64 @@
+class Node<T> {
+    private T value;
+    private Node<T> next;
+
+    public Node(T value) {
+        this.value = value;
+        this.next = null;
+    }
+
+    public T getValue() {
+        return value;
+    }
+
+    public Node<T> getNext() {
+        return next;
+    }
+
+    public void setNext(Node<T> next) {
+        this.next = next;
+    }
+}
+
+public class ListsLevel1 {
+    public static boolean isIn(Node<Integer> head, int value) {
+        while (head != null) {
+            if (head.getValue() == value) {
+                return true;
+            }
+            head = head.getNext();
+        }
+        return false;
+    }
+
+    public static Node<Integer> commonList(Node<Integer> L1, Node<Integer> L2) {
+        Node<Integer> dummy = new Node<>(-1);
+        Node<Integer> current = dummy;
+
+        while (L1 != null) {
+            if (isIn(L2, L1.getValue())) {
+                current.setNext(new Node<>(L1.getValue()));
+                current = current.getNext();
+            }
+            L1 = L1.getNext();
+        }
+
+        return dummy.getNext();
+    }
+
+    public static Node<Integer> exe11(Node<Integer> L1, Node<Integer> L2) {
+        Node<Integer> dummy = new Node<>(-1);
+        dummy.setNext(L1);
+        Node<Integer> current = dummy;
+
+        while (current.getNext() != null) {
+            if (isIn(L2, current.getNext().getValue())) {
+                current.setNext(current.getNext().getNext());
+            } else {
+                current = current.getNext();
+            }
+        }
+
+        return dummy.getNext();
+    }
+}
